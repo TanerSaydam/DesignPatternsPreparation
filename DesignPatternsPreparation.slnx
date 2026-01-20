@@ -1,4 +1,5 @@
 <Solution>
   <Project Path="01SingletonPattern/01SingletonPattern.csproj" />
+  <Project Path="02FactoryPattern/02FactoryPattern.csproj" Id="0d5b986d-aced-434d-b8eb-fefdf6dff3e2" />
   <Project Path="_TestWebAPI/_TestWebAPI.csproj" Id="8a4e1b81-50b9-4489-a2a3-b23188f44ff3" />
 </Solution>
