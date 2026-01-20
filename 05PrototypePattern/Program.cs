@@ -2,6 +2,7 @@
 
 Console.WriteLine("Prototype Pattern");
 
+#region Initialize
 Product masaustuBilgisayar = new()
 {
     Id = 1,
@@ -9,13 +10,19 @@ Product masaustuBilgisayar = new()
     Price = 100000,
     Stock = 10
 };
+#endregion
 
+#region Old Version
 //Product laptop = (Product)masaustuBilgisayar.Clone();
+//laptop.Name = "Laptop";
+#endregion
+
+#region Mapping Version
 Product laptop = masaustuBilgisayar.Adapt<Product>();
 laptop.Name = "Laptop";
+#endregion
 
-Console.WriteLine(masaustuBilgisayar.Name);
-
+#region Initialize
 class Product : ICloneable
 {
     public int Id { get; set; }
@@ -34,3 +41,4 @@ class Product : ICloneable
         };
     }
 }
+#endregion
