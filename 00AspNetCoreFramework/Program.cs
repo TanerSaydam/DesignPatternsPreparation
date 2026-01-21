@@ -1,4 +1,7 @@
-﻿var builder = WebApplication.CreateBuilder(args); //Uygulamanın konfigürasyonunu toplar
+﻿using VaultSharp;
+using VaultSharp.V1.AuthMethods.Token;
+
+var builder = WebApplication.CreateBuilder(args); //Uygulamanın konfigürasyonunu toplar
 
 #region Service Registration / Service Configuration Phase / DI Configuration / Composition Root
 //builder.Configuration.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
@@ -13,6 +16,10 @@
 #endregion
 
 var app = builder.Build(); //uygulamanın çalışabilir bir instance'ini oluşturur // DI Container’ı BARINDIRAN ve onu KULLANAN uygulama nesnesidir
+
+await new VaultService().GetSecrets();
+var connectionString = VaultService.Datas[VaultDataNames.SqlConnectionString];
+Console.WriteLine("Connection String: {0}", connectionString);
 
 #region Middleware pipeline configuration
 
@@ -47,3 +54,27 @@ app.Run();
 //    var t = new Task(...);
 //    return t;
 //}
+
+public class VaultService
+{
+    public static Dictionary<string, object> Datas = new();
+    public async Task GetSecrets()
+    {
+        var vaultToken = "root";
+        var vaultUri = "http://127.0.0.1:8200";
+        var vaultTokenInfo = new TokenAuthMethodInfo(vaultToken);
+        var vaultClientSettings = new VaultClientSettings(vaultUri, vaultTokenInfo);
+        var vaultClient = new VaultClient(vaultClientSettings);
+
+        var secrets = await vaultClient.V1.Secrets.KeyValue.V2.ReadSecretAsync(
+            path: "TestWebAPI",
+            mountPoint: "secret");
+
+        Datas = secrets.Data.Data.ToDictionary();
+    }
+}
+
+public class VaultDataNames
+{
+    public static string SqlConnectionString = "ConnectionStrings::SqlServer";
+}

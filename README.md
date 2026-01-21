@@ -12,17 +12,18 @@ Kısaca, aynı problemi her seferinde sıfırdan düşünmemek için kullanılan
 ---
 
 ## Eğitim İçeriği
-- [ ] AspNetCore Framework'ünü anlayalım
-- [ ] Dependency Injection
-- [ ] Middleware
-- [ ] Design Patterns nedir?
-  - [ ] **Singleton Pattern** (1994 - Book)
-  - [ ] **Factory Pattern** (1994 - Book)
-  - [ ] **Abstract Factory** Pattern (1994 - Book)
-  - [ ] **Builder Pattern** (1994 - Book)
-  - [ ] **Prototype Pattern** (199(1994 - Book)4 - Book)
-  - [ ] **Facade Pattern** (1994 - Book)
-  - [ ] **Proxy Pattern** (1994 - Book)
+- [x] AspNetCore Framework'ünü anlayalım
+- [x] Dependency Injection
+- [x] Middleware
+- [x] Secret Services (Vault)
+- [x] Design Patterns nedir?
+  - [x] **Singleton Pattern** (1994 - Book)
+  - [x] **Factory Pattern** (1994 - Book)
+  - [x] **Abstract Factory** Pattern (1994 - Book)
+  - [x] **Builder Pattern** (1994 - Book)
+  - [X] **Prototype Pattern** (199(1994 - Book)4 - Book)
+  - [x] **Facade Pattern** (1994 - Book)
+  - [x] **Proxy Pattern** (1994 - Book)
   - [ ] **Service Pattern** (Modern)
   - [ ] **Repository Pattern** (Modern)
   - [ ] **Unit Of Work Pattern** (Modern)
@@ -31,11 +32,11 @@ Kısaca, aynı problemi her seferinde sıfırdan düşünmemek için kullanılan
   - [ ] **CQRS Pattern** (Modern)
   - [ ] **Options Pattern** (Modern)
   - [ ] **Result Pattern** (Modern)
-  - [ ] **Service Discovery Pattern** (Modern)
+  - [x] **Service Discovery Pattern** (Modern)
   - [ ] **Outbox Pattern** (Modern)
-  - [ ] **Observer Pattern - Queue - Channels Library** (Modern)
+  - [x] **Observer Pattern - Queue - Channels Library** (Modern)
   - [ ] **Rate Limiting Pattern** (Modern)
-  - [ ] **Circuit Breaker Pattern / Retry Pattern** (Polly Library) (Modern)
+  - [x] **Circuit Breaker Pattern / Retry Pattern** (Polly Library) (Modern)
 - [ ] Architectural Patterns nedir?
   - [ ] N Tier Architecture
   - [ ] Clean Architecture
@@ -107,7 +108,8 @@ VaultSharp
 ```csharp
 public class VaultService
 {
-    public async Task<Secret<SecretData>> GetSecrets()
+    public static Dictionary<string, object> Datas = new();
+    public async Task GetSecrets()
     {
         var vaultToken = "root";
         var vaultUri = "http://127.0.0.1:8200";
@@ -116,12 +118,18 @@ public class VaultService
         var vaultClient = new VaultClient(vaultClientSettings);
 
         var secrets = await vaultClient.V1.Secrets.KeyValue.V2.ReadSecretAsync(
-            path: "productapp/config",
+            path: "TestWebAPI",
             mountPoint: "secret");
 
-        return secrets;
+        Datas = secrets.Data.Data.ToDictionary();
     }
 }
+```
+
+```csharp
+await new VaultService().GetSecrets();
+var connectionString = VaultService.Datas["ConnectionStrings::SqlServer"];
+Console.WriteLine("Connection String: {0}", connectionString);
 ```
 
 - vault.hcl

@@ -5,6 +5,7 @@
   </Folder>
   <Folder Name="/Solution Items/">
     <File Path="README.md" />
+    <File Path="vault.hcl" />
   </Folder>
   <Project Path="00AspNetCoreFramework/00AspNetCoreFramework.csproj" />
   <Project Path="01SingletonPattern/01SingletonPattern.csproj" />
@@ -14,5 +15,7 @@
   <Project Path="05PrototypePattern/05PrototypePattern.csproj" Id="a08e4afb-59b2-43bd-aad3-bb6f7cf70f31" />
   <Project Path="06FacadePattern/06FacadePattern.csproj" Id="a0c6a40b-c2c8-4dd6-93d8-bcc445f588a8" />
   <Project Path="07ProxyPattern/07ProxyPattern.csproj" Id="b82f0f54-576f-4293-b69c-5da3d29fbfc8" />
+  <Project Path="18ChannelsLibrary/18ChannelsLibrary.csproj" Id="16db8550-57a7-41b5-8656-51e10ad71cf9" />
+  <Project Path="20CircuitBreakerPattern/20CircuitBreakerPattern.csproj" Id="fc39613a-2f76-466b-b520-fdbdca97f914" />
   <Project Path="_TestWebAPI/_TestWebAPI.csproj" Id="8a4e1b81-50b9-4489-a2a3-b23188f44ff3" />
 </Solution>

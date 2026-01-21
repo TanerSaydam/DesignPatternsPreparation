@@ -19,4 +19,8 @@
 
 		<Copy SourceFiles="$(SourceAppSettings)" DestinationFiles="$(DestinationAppSettings)" SkipUnchangedFiles="false" OverwriteReadOnlyFiles="true" Condition="Exists('$(SourceAppSettings)')" />
 	</Target>
+
+	<ItemGroup>
+	  <PackageReference Include="VaultSharp" Version="1.17.5.1" />
+	</ItemGroup>
 </Project>
