@@ -1,4 +1,8 @@
 <Solution>
+  <Folder Name="/16ServiceDiscoveryPattern/">
+    <Project Path="16ServiceDiscoveryPattern/CategoryWebAPI/CategoryWebAPI.csproj" />
+    <Project Path="16ServiceDiscoveryPattern/ProductWebAPI/ProductWebAPI.csproj" Id="df9cde6e-82dc-4a8d-9d30-a41a589022ba" />
+  </Folder>
   <Folder Name="/Solution Items/">
     <File Path="README.md" />
   </Folder>
